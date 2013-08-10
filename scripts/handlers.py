@@ -10,12 +10,15 @@ class MainHandler(base.Handler):
 
 class HomeHandler(base.Handler):
     def get(self):
+		
         template_values = {
-            'name': page_title,
-            'verb': page_description
+            'name': self.name,
+            'verb': self.verb,
+			'title': self.page_title,
+            'desc': self.page_description
         }
-
-        template = jinja_environment.get_template('index.html')
+		
+        template = self.jinja_environment.get_template('index.html')
         self.response.out.write(template.render(template_values))
 
 class FormHandler(base.Handler):
