@@ -1,18 +1,19 @@
 import webapp2
 import os
-from google.appengine.ext.webapp import template
 
+from webapp2_extras import routes
+from scripts import handlers
 
-class MainHandler(webapp2.RequestHandler):
-  def get(self):
-    template_values = {
-      'name': "World",
-    }
+IS_DEBUG_TRUE = os.environ.get("SERVER_SOFTWARE", "").startswith("Dev") # Verifies if running dev server(true) or production server(false)
 
-    path = os.path.join(os.path.dirname(__file__), 'index.html')
-    self.response.out.write(template.render(path, template_values))
-
+webapp2_config = {}
+webapp2_config["webapp2_extras.sessions"] = {
+  "secret_key":"suSECRETkey",
+}
 
 app = webapp2.WSGIApplication([
-  ('/.*', MainHandler),
-], debug=True)
+  webapp2.Route(r'/main', handler=handlers.MainHandler, name="main"), \
+  webapp2.Route(r'/', handler=handlers.HomeHandler, name="home"), \
+  webapp2.Route(r'/sign', handler=handlers.FormHandler, name="forms"),
+  
+], debug=IS_DEBUG_TRUE)
