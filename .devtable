@@ -4,7 +4,7 @@
 // documentation at https://devtable.com/docs/
 
 profile = DevTable.Profile(
-	Analyze = [python],
+  Analyze = [python],
 	Build = [appengine_debug],
 	Debug = [appengine_debug, appengine_prod],
 	Deploy = [appengine_prod]
