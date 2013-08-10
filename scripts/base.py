@@ -4,6 +4,7 @@ import os
 import jinja2
 
 from scripts import auth
+from scripts import data
 
 class Handler(webapp2.RequestHandler):
 	''' SETTING UP JINJA2 '''
@@ -17,3 +18,4 @@ class Handler(webapp2.RequestHandler):
 	''' AUTHENTICATION '''
 	user = auth.Authenticate()
 	
+	''' DATABASES '''

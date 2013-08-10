@@ -10,19 +10,35 @@ class MainHandler(base.Handler):
 
 class HomeHandler(base.Handler):
     def get(self):
-		
-        template_values = {
-            'name': self.name,
+		template_values = {
+			'name': self.name,
             'verb': self.verb,
 			'title': self.page_title,
             'desc': self.page_description
         }
+		template = self.jinja_environment.get_template('index.html')
+		self.response.out.write(template.render(template_values))
 		
-        template = self.jinja_environment.get_template('index.html')
-        self.response.out.write(template.render(template_values))
-
-class FormHandler(base.Handler):
-  def post(self):
-    self.response.write('<html><body>You wrote:<pre>')
-    self.response.write(cgi.escape(self.request.get('content')))
-    self.response.write('</pre></body></html>')
+class OnSubmit(base.Handler):
+	def get(self):
+		template_values = {
+			'name': self.name,
+			'verb': self.verb,
+			'title': self.page_title,
+			'desc': self.page_description
+		}
+		
+		template = self.jinja_environment.get_template('index.html')
+		self.response.out.write(template.render(template_values))
+		
+	def post(self):
+		''' SETTING UP AN ENTITY GROUP & CREATE OBJECTS'''
+		'''entitygroup = self.request.get("EntityGroup")'''
+		entity = DataModel(	parent=EntityKey(entity_name),
+							ndbname=self.request.get("ndbname"),
+							ndbmessage=self.request.get("ndbmessage"))
+							
+		entity.put()
+		self.redirect('/')
+		
+	

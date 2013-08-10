@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Look Ma, I'm using Jinja!</title>
-    </head>
-    <body>
-        Hi there - I'm {{ name }}, and I {{ verb }} programming!
+<head>
+<title>{{ title }}</title>
+</head>
+<body>
+	<h1>Hi there - I'm {{name}}, and I {{verb}} programming!</h1>
+	
+	<form action="/sign" method="post">
+		<div><input name="name" type="text" value="Your Name"></div>
+		<div><textarea name="message" rows="3" cols="60"></textarea></div>
+		<div><input type="submit" value="Submit your name"></div>
+    </form>
+	
     </body>
 </html>
